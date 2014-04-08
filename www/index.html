@@ -1,68 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>jQM Complex Demo</title>
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no; target-densityDpi=device-dpi"/>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-	<script src="http://godtforden.dk/5/sw.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+
+   <script>
+// This function will be called when the JSONP script returns. It needs to be evaluated
+// before the script with the JSONP call.
+var processJSONs = function (json) {
+    //var monkey_photos = document.getElementById('Kategorier');
+    //var container = document.createElement('div');
+
+    // Initialize a var for new elements
+    //var div;
+
+    // Build a list of images
+    //for (var item in json.items) {
+     //   div = document.createElement('div');
+      //  div.innerHTML = json.items[item].id;
+       // container.appendChild(div);
+   // }
+
+    //monkey_photos.appendChild(container);
+};
+var top10 = function (json) {
+	var list = $('#taskList');
 		
-    <script>
-              $(document).on('pageinit', '#index', function(){       
-                        //alert('init');
-						initLocalStorage();
-						initList();
-						//document.getElementById("resultat").innerHTML="aaaaaaaaaaaaaaaaaaaaaaaaaaaaa!";
-                });
+	 
+	 //var monkey_photos = document.getElementById('hesthest');
+    //var container = document.createElement('div');
+    //var div;
 
-				$(document).on('pagebeforeshow', '#index', function(){       
-                        //alert('Page One');
-						document.getElementById("resultat").innerHTML="aaaaaaaaaaaaaaaaaaaaaaaaaaaaa!";
-                });
+    for (var item in json.items) {
+        //div = document.createElement('div');
+        //div.innerHTML = "<a href=vis.aspx?id="+json.items[item].id+">"+json.items[item].value;+"</a>"
+		var hest = json.items[item].value;
+		var hiid = json.items[item].id;
+		list.append('<li><a rel=external href=vishistorie.html?historieid='+hiid+'>'+hest+'</a></li>');  
+		
+        //container.appendChild(div);
+    }
+    list.listview("refresh");
 
-                $(document).on('pageshow', '#second', function(){       
-                        //alert('Page Two');                  
-						//initList();
-						var d = getQueryVariable2("id");
-						//alert(d);
-						var x = localStorage.getItem(d);
-						//document.getElementById("resultats").innerHTML="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb!";
-						document.getElementById("resultats").innerHTML=x;
-                });         
-    </script>      
-    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>   
-</head>
+    //monkey_photos.appendChild(container);
+};
+
+
+</script>
+
+ </head>
 <body>
-    <div data-role="page" id="index">
-        <div data-theme="a" data-role="header">
-            <h3>
-                First Page
-            </h3>
-            <a href="nav.html?id=1500" class="ui-btn-right">Next</a>
-        </div>
-		 <div data-role="navbar">
-					<ul>
-						<li><a href="index.html" data-icon="star" class="ui-btn-active">Top 100</a></li>
-						<li><a href="buttons.html" data-icon="grid">Kategorier</a></li>
-						<!-- <li><a href="forms.html" data-icon="gear">Forms</a></li>-->
-					</ul>
-		</div>
 
-				
+ 
+<div data-role="page" id="pageone">
 
-        <div data-role="content">
-		<div id=resultat>res</div>
-		
-		 <ol id="taskList" data-role="listview" data-role="listview" data-filter="true" data-filter-placeholder="SÃ¸g historie..." data-inset="true">
-				
+
+  <div data-role="header">
+  <h1>Top 100 historier</h1>
+  </div>
+
+  <div data-role="content" id="matches">
+ 
+ <ol id="taskList" data-role="listview" data-role="listview" data-filter="true" data-filter-placeholder="Søg historie..." data-inset="true"></ol>
  
  
-        </div>
 
-		
-        <div data-theme="a" data-role="footer" data-position="fixed">
 
-        </div>
-    </div>    
+  </div>
+
+  <div data-role="footer">
+  <h1>Sexwriter.dk</h1>
+  </div>
+</div> 
+
 </body>
-</html>   
+</html>
+ <script src='http://app.sexwriter.dk/defaultz.aspx?jsoncallback=top10&show=top10&tags=monkey&tagmode=any&format=json'></script> 
